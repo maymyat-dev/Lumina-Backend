@@ -1,6 +1,5 @@
 import { Logger, RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
-import * as compression from 'compression';
 
 import { ResponseInterceptor } from './lib/interceptors/responses.interceptor';
 import { AppModule } from './app.module';
@@ -27,7 +26,6 @@ async function bootstrap() {
     origin: '*',
     credentials: true,
   });
-  app.use(compression());
   app.useGlobalInterceptors(new ResponseInterceptor(new Reflector()));
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
