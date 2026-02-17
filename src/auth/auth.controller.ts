@@ -4,10 +4,10 @@ import { UserAuthDto } from './dto/auth.dto';
 import * as authEntity from './entities/auth.entity';
 import { JwtUserAuthGuard } from './guard/jwt-user-auth.guard';
 import { ConfigService } from '@nestjs/config';
-import { SkipInterceptor } from 'src/lib/decorators/skip-interceptor';
 import { GoogleOauthGuard } from './guard/google-auth.guard';
 import express from 'express';
 import { OTPRequestDto, OTPUserUpdateDto, OTPVerifyDto } from './dto/otp.dto';
+import { SkipInterceptor } from '../lib/decorators/skip-interceptor';
 
 @Controller('auth')
 export class AuthController {
