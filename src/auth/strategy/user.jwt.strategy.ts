@@ -29,10 +29,10 @@ export class JwtStrategyUser extends PassportStrategy(Strategy, 'jwt-user') {
 
     const tokenHash = createHash('sha256').update(token).digest('hex');
 
-    const redisTokenKey = `user:${payload.user_id}:token:${tokenHash}`;
-    const exists = await this.redisClient.get(redisTokenKey);
+    const redisKeyPattern = `user:${payload.user_id}:token:${tokenHash}*`;
+    const exists = await this.redisClient.keys(redisKeyPattern);
 
-    if (!exists) {
+    if (exists.length === 0) {
       throw new HttpException('Token invalid or logged out', HttpStatus.UNAUTHORIZED);
     }
 

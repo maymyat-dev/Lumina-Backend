@@ -41,7 +41,13 @@ export class AuthService {
     const redisTokenKey = `user:${user_id}:token:${tokenHash}@${Date.now()}`;
     await this.redisClient.set(redisTokenKey, tokenHash, 'EX', 60 * 60 * 24); // 1 day
 
-    return { message: "Login Successful.", data: { ...user, access_token } };
+    return {
+      message: "Login Successful.", 
+      data: { 
+        email: user.email,
+        accessToken: access_token 
+      } 
+    };
   }
 
   async generateOtp(length: number) {
@@ -79,7 +85,6 @@ export class AuthService {
         if (emailExist.otpVerified) {
           return {
             data: {
-              otpCode: null,
               otpVerified: emailExist.otpVerified,
             },
             message: 'Otp Verified',
@@ -87,9 +92,7 @@ export class AuthService {
         } else if (emailExist.otpVerified && emailExist.password) {
           return {
             data: {
-              otpCode: null,
               otpVerified: emailExist.otpVerified,
-              profileUpdated: true,
             },
             message: 'Please Login',
           };
@@ -119,7 +122,6 @@ export class AuthService {
 
           return {
             data: {
-              otpCode: null,
               otpVerified: emailExist.otpVerified,
             },
             message: 'Otp Code Send Successfully',
@@ -149,9 +151,6 @@ export class AuthService {
         });
 
         return {
-          data: {
-            otpCode: null,
-          },
           message: 'Otp Code Send Successfully',
         };
       }
@@ -252,7 +251,7 @@ export class AuthService {
         }
       });
 
-      await this.generateAndSaveAccessToken(user, user.id);
+      return await this.generateAndSaveAccessToken(user, user.id);
     } catch (error) {
       throw error instanceof HttpException
         ? new HttpException(error.message, error.getStatus())
@@ -287,8 +286,15 @@ export class AuthService {
 
   async userLogout(user_id: string, token: string) {
     try {
-      const redisTokenKey = `user:${user_id}:token:${token}`;
-      await this.redisClient.del(redisTokenKey);
+      const tokenHash = createHash('sha256').update(token).digest('hex');
+
+      const redisKeyPattern = `user:${user_id}:token:${tokenHash}*`;
+      const exists = await this.redisClient.keys(redisKeyPattern);
+
+      if (exists.length >0) {
+        await this.redisClient.del(exists);
+      }
+
       return { message: 'Logout Successful.' }
     } catch (error) {
       throw error instanceof HttpException
