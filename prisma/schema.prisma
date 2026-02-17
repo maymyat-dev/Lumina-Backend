@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum LOGIN_TYPE {
+  EMAIL
+  GOOGLE
+}
+
+model Users {
+  id String @id @default(uuid()) @db.VarChar(255)
+
+  email             String
+  password          String?
+  firstName         String?
+  lastName          String?
+  uniqueId          String?
+  otpVerified       Boolean @default(false)
+  otpCode           String?
+  otpExpiry         DateTime?
+
+  loginType LOGIN_TYPE @default(EMAIL)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

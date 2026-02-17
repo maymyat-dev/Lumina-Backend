@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>OTP Registration</title>
+  </head>
+  <body
+    style='
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #f9f5f5;
+      background-color: #f9f9f9;
+    '
+  >
+    <div
+      style='
+        max-width: 640px;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      '
+    >
+      <div
+        style='
+        background: linear-gradient(180deg, #000080 0%, #0000FF 47.73%);
+        background-size: contain;
+        background-position: center;
+        width: 100%;
+        text-align: center;
+        padding: 40px 0;
+      '
+      >
+        <h1 style='padding: 10px 0; margin-bottom: 10px;'>Thank For Registration</h1>
+        <p style='margin-bottom: 10px;'>Please verify your email address</p>
+      </div>
+      <div
+        style='
+          background: #fff;
+          padding: 32px 42px;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 800;
+          color: #000;
+          line-height: 1.5;
+        '
+      >
+        <div>
+          <p>Hello {{name}},</p>
+          <p>Please use the following One Time Password (OTP)</p>
+          <p>
+            This passcode will only be valid for the next 3 minutes. If the
+            passcode does not work, you can use this login verification link:
+          </p>
+        </div>
+        <div
+          style='
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px auto;
+            width: fit-content;
+          '
+        >
+          {{#each otp_code}}
+            <div
+              style='
+              padding: 10px;
+              font-size: 24px;
+              font-weight: 700;
+              color: #000080;
+              border: 1px solid #d3d3d3;
+              border-radius: 10px;
+              margin: 0 5px;
+            '
+            >
+              {{this}}
+            </div>
+          {{/each}}
+        </div>
+        <p>OTP will expire in next 3 minutes or when you request a new one</p>
+        <a
+          href='{{verify_link}}'
+          style='
+            display: block;
+            padding: 10px;
+            border: 2px solid #000080;
+            border-radius: 5px;
+            text-align: center;
+            color: #000080;
+            text-decoration: none;
+            width: 95%;
+            margin: 20px auto;
+          '
+          target="_blank";
+        >Verify Email</a>
+      </div>
+
+      <div
+        style='padding: 20px; border-top: 1px solid #ddd; text-align: center'
+      >
+        <h3 style='font-size: 16px; font-weight: 600; color: #1e1e1e'>
+          Thanks,<br />TSK Team
+        </h3>
+      </div>
+
+      <div
+        style='
+          font-size: 16px;
+          font-weight: 400;
+          color: #f9f5f5;
+          background-color: #000080;
+          text-align: center;
+          padding: 16px 0;
+        '
+      >
+        © 2025-2026 TSK Team. All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

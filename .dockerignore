@@ -1,0 +1,44 @@
+# Node modules and dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.vscode
+.idea
+.DS_Store
+
+# Logs
+logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+pids
+
+# Dependency directories
+.babelrc
+.next
+.out
+dist
+coverage
+
+# Configuration files
+.env.*
+
+# Optional npm cache
+.npm
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Editor and OS files
+*.swp
+*.swo
+*~
+Thumbs.db
