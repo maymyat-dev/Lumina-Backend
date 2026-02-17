@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { createHash, randomInt } from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { OTPRequestDto, OTPUserUpdateDto, OTPVerifyDto } from './dto/otp.dto';
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 import { OTP_TYPE } from './entities/auth.entity';
